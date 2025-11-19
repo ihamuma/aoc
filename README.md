@@ -20,17 +20,17 @@ aoc/
 To run any solution, use the following command from the repository root:
 
 ```bash
-cargo run -p year2024 <day> [test]
+cargo run -p yearYYYY <day> [test]
 ```
 
 ### Examples
 
-Run day 1 with real input:
+Run 2024 day 1 with real input:
 ```bash
 cargo run -p year2024 1
 ```
 
-Run day 1 with test input:
+Run 2024 day 1 with test input:
 ```bash
 cargo run -p year2024 1 test
 ```
