@@ -1,6 +1,11 @@
 # Advent of Code
 
-This repository contains solutions for [Advent of Code](https://adventofcode.com/). All should be correct, none are likely to be particularly fast, many will amuse a more experienced rustacean. Enjoy?
+This repository contains solutions for [Advent of Code](https://adventofcode.com/). Solutions are implemented in different languages across years. All should be correct, none are likely to be particularly fast. Enjoy?
+
+## Current Status
+
+- **2024**: 10 days completed (Rust)
+- **2022**: 6 days completed (Python)
 
 ## Structure
 
@@ -11,19 +16,24 @@ aoc/
 │   │   ├── days/       # Solutions for each day
 │   ├── input/          # Puzzle inputs (01.txt, 02.txt, etc.)
 │   └── input_test/     # Test inputs
-├── year2025/       # 2025 solutions (to be added)
+├── year2022/       # 2022 solutions in Python
+│   ├── src/            # Python solution files (day01.py, day02.py, etc.)
+│   ├── input/          # Puzzle inputs (01.txt, 02.txt, etc.)
+│   └── input_test/     # Test inputs
 └── ...
 ```
 
 ## Running Solutions
 
-To run any solution, use the following command from the repository root:
+### Rust Solutions (2024)
+
+To run any Rust solution, use the following command from the repository root:
 
 ```bash
 cargo run -p yearYYYY <day> [test]
 ```
 
-### Examples
+#### Examples
 
 Run 2024 day 1 with real input:
 ```bash
@@ -35,9 +45,19 @@ Run 2024 day 1 with test input:
 cargo run -p year2024 1 test
 ```
 
-Run day 5 from 2025 (when available):
+### Python Solutions (2022)
+
+To run Python solutions, execute the day file directly:
+
 ```bash
-cargo run -p year2025 5
+python year2022/src/dayXX.py
+```
+
+#### Examples
+
+Run 2022 day 1:
+```bash
+python year2022/src/day01.py
 ```
 
 ## Adding a New Year
