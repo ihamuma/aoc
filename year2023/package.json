@@ -1,0 +1,17 @@
+{
+  "name": "year2023",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Advent of Code 2023 solutions in TypeScript",
+  "scripts": {
+    "solve": "tsx src/main.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}

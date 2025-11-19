@@ -1,0 +1,15 @@
+{
+  "name": "@aoc/cli",
+  "version": "1.0.0",
+  "description": "Advent of Code CLI dispatcher",
+  "type": "module",
+  "bin": {
+    "aoc": "./bin/aoc.js"
+  },
+  "keywords": ["advent-of-code"],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

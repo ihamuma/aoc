@@ -6,3 +6,8 @@
 
 # Cargo.lock for workspace members (keep root Cargo.lock)
 /year*/Cargo.lock
+
+# Node.js
+node_modules/
+dist/
+*.js.map
