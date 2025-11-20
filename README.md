@@ -87,7 +87,7 @@ If you prefer to run solutions directly without the CLI:
 To run any Rust solution, use the following command from the repository root:
 
 ```bash
-cargo run -p yearYYYY <day> [test]
+cargo run -p year2024 <day> [test]
 ```
 
 #### Examples
