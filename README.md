@@ -1,6 +1,8 @@
 # Advent of Code
 
-This repository contains solutions for [Advent of Code](https://adventofcode.com/). Solutions are implemented in different languages across years. All should be correct, none are likely to be particularly fast. Enjoy?
+This repository contains solutions for [Advent of Code](https://adventofcode.com/).
+Solutions are implemented in different languages across years.
+All should be correct, none are likely to be particularly fast. Enjoy?
 
 ## Current Status
 
