@@ -6,7 +6,7 @@ All should be correct, none are likely to be particularly fast. Enjoy?
 
 ## Current Status
 
-- **2024**: 10 days completed (Rust)
+- **2024**: 9 days completed (Rust)
 - **2023**: 0 days completed (TypeScript)
 - **2022**: 6 days completed (Python)
 
