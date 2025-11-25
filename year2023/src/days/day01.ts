@@ -14,11 +14,14 @@ export function solve(filePath: string): void {
 }
 
 function solvePart1(lines: string[]): number {
-  // TODO: Implement part 1
+  const results: number[] = [];
+  lines.forEach((line) => {
+    console.log(line.split(''))
+  })
   return 0;
 }
 
-function solvePart2(lines: string[]): number {
+function solvePart2(lines: string[]): string {
   // TODO: Implement part 2
-  return 0;
+  return 'Not implemented';
 }

@@ -1,4 +1,4 @@
-import * as day01 from './days/day01.js';
+import * as day01 from './days/day01.ts';
 
 const args = process.argv.slice(2);
 
