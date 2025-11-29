@@ -6,7 +6,7 @@ export function solve(filePath: string): void {
 
   // Part 1
   const part1 = solvePart1(lines);
-  console.log('Part 1:', part1);
+  console.log('Part 1 calibration values sum:', part1);
 
   // Part 2
   const part2 = solvePart2(lines);
@@ -14,11 +14,21 @@ export function solve(filePath: string): void {
 }
 
 function solvePart1(lines: string[]): number {
-  const results: number[] = [];
-  lines.forEach((line) => {
-    console.log(line.split(''))
-  })
-  return 0;
+
+  const numberPattern: RegExp = new RegExp(/\d/g);
+
+  let calibrationValueSum: number = 0; 
+
+  for (let i = 0; i < lines.length; i++) {
+    const regexMatches: RegExpMatchArray | null = lines[i].match(numberPattern);
+    if (regexMatches) {
+      calibrationValueSum += +regexMatches[0].concat(regexMatches[regexMatches.length - 1])
+    } else {
+      console.log(`No match for line ${i}`)
+    }
+  }
+
+  return calibrationValueSum;
 }
 
 function solvePart2(lines: string[]): string {
