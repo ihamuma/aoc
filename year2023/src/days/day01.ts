@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { lstat, readFileSync } from 'node:fs';
 
 export function solve(filePath: string): void {
   const input: string = readFileSync(filePath, 'utf-8');
@@ -33,37 +33,25 @@ function solvePart1(lines: string[]): number {
 }
 
 function solvePart2(lines: string[]): number {
-/*  const partTwoInput = input.replaceAll('one', '1')
-                            .replaceAll('two', '2')
-                            .replaceAll('three', '3')
-                            .replaceAll('four', '4')
-                            .replaceAll('five', '5')
-                            .replaceAll('six', '6')
-                            .replaceAll('seven', '7')
-                            .replaceAll('eight', '8')
-                            .replaceAll('nine', '9'); 
-  const partTwoLines: string[] = partTwoInput.trim().split('\n'); */
-  const numberPattern: RegExp = new RegExp(/\d|one|two|three|four|five|six|seven|eight|nine/g);
+  const numberPattern: RegExp =        new RegExp(/\d|one|two|three|four|five|six|seven|eight|nine/);
+  const reverseNumberPattern: RegExp = new RegExp(/\d|eno|owt|eerht|ruof|evif|xis|neves|thgie|enin/);
   let calibrationValueSum: number = 0; 
 
   for (let i = 0; i < lines.length; i++) {
-    let first: number;
-    let last: number;
+    let first: string = '0';
+    let last: string = '0';
+
     const regexMatches: RegExpMatchArray | null = lines[i].match(numberPattern);
+    const reverseRegexMatches: RegExpMatchArray | null = reverseString(lines[i]).match(reverseNumberPattern);
+
     if (regexMatches) {
-      console.log(regexMatches)
-      const first = replaceIfTextNumber(regexMatches[0])
-      console.log(first)
-      const last = replaceIfTextNumber(regexMatches[regexMatches.length - 1])
-      console.log(last)
-      calibrationValueSum += +first.concat(last)
-    } else {
-      console.log(`No match for line ${i}`)
+      first = replaceIfTextNumber(regexMatches[0])
     }
-    // TODO: test reverse solution. Need to reverse numberPattern literal numbers as well.
-    // Rationale: solution too low due to overlapping text numbers at end of string / last
-    // literal number not being caught correctly
-    // const reverseRegexMatches: RegExpMatchArray | null = lines[i]
+    if (reverseRegexMatches) {
+      last = replaceIfTextNumber(reverseString(reverseRegexMatches[0]))
+    }
+
+    calibrationValueSum += +first.concat(last)
   }
 
   return calibrationValueSum;
@@ -82,4 +70,8 @@ function replaceIfTextNumber(maybeNumber: string): string {
     case 'nine': return '9';
     default: return maybeNumber
   }
+}
+
+function reverseString(str: string): string {
+  return str.split('').reverse().join('')
 }
