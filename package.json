@@ -7,7 +7,7 @@
     "aoc": "./bin/aoc.js"
   },
   "keywords": ["advent-of-code"],
-  "author": "",
+  "author": "Markus Ihamuotila",
   "license": "ISC",
   "engines": {
     "node": ">=18.0.0"
