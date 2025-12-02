@@ -1,18 +1,15 @@
 use std::fs;
 
 pub fn solve(input_file: &str) {
-    let by_line: Vec<(&str, i16)> = fs::read_to_string(input_file)
-        .unwrap()   
+    let input: String = fs::read_to_string(input_file).unwrap();
+    let by_line: Vec<(&str, i16)> = input
         .lines()
-        .map(|l| String::from(l))
         .map(|s| s.split_at(1))
         .map(|t| (t.0, t.1.parse::<i16>().unwrap()))
         .collect();
 
     let day_one_combination = solve_day_one(by_line);
     println!("Day one combination: {}", day_one_combination);
-
-    ()
 }
 
 fn solve_day_one(lines: Vec<(&str, i16)>) -> u16 {
