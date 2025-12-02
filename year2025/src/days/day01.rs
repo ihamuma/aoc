@@ -29,3 +29,13 @@ fn solve_day_one(lines: Vec<(&str, i16)>) -> u16 {
     }
     return combination;
 }
+
+fn solve_day_two(lines: Vec<(&str, i16) -> u16 {
+    println("{lines}");
+    
+    // TODO: For each rotation, do % 100
+    // Reduce the remainder from the rotation and / 100 = full rotations over 0 for numbers >100
+    // Add / reduce remainder from current position - how to check if passes 0?
+    
+    return 16
+}
