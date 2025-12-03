@@ -8,7 +8,7 @@ pub fn solve(input_file: & str) {
     println!("Part one total: {}", part_one_total);
 
     let part_two_total: u64 = solve_part_two(&ranges);
-    println!("Part two total: {}", part_one_total);
+    println!("Part two total: {}", part_two_total);
 }
 
 fn solve_part_one(id_ranges: &Vec<Vec<u64>>) -> u64 {
@@ -27,12 +27,30 @@ fn solve_part_one(id_ranges: &Vec<Vec<u64>>) -> u64 {
     return total;
 }
 
+/* I'm fairly certain regexing for repeat digits and series would be faster but this
+    implementation only uses the standard library. Of course, more efficient ways than
+    this are out there. */ 
 fn solve_part_two(id_ranges: &Vec<Vec<u64>>) -> u64 {
-    /* TODO options:
-    1. for each id in each range, get length. For n in 2..=length/2, check if length % n = 0.
-        if true, split id into n equal chunks. if all equal, total += id and break
-        NB: would .windows(length/n) work here?
-    2. make some crazy regex that checks for repeating digits and series of digits until id.len()/2 for each id in each range.
-        if repeating digits -> total += id and break   */
-    return 64;
+    let mut total: u64 = 0;
+    for id_range in id_ranges {
+        let first_id: u64 = id_range[0];
+        let last_id: u64 = id_range[1];
+        for id in first_id..=last_id {
+            let id_string: Vec<char> = id.to_string().chars().collect();
+            let id_length = id_string.len();
+            let id_slice: &[char] = &id_string[..];
+            for n in 1..=id_length/2 {
+                if id_length % n == 0 {
+                    let mut id_chunks: Vec<&[char]> = id_slice.chunks(n).collect();
+                    let first: &[char] = id_chunks.pop().unwrap();
+                    let is_invalid = id_chunks.iter().all(|x: &&[char]|x == &first);
+                    if is_invalid {
+                        total += id;
+                        break
+                    }
+                } else { continue; }
+            }
+        }    
+    }
+    return total;
 }
