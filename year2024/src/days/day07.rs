@@ -30,28 +30,28 @@ static OPERATORS: [fn(u64, u64) -> u64; 3] = [
     // For part one result:
     // Modify signature 3 -> 2
     // Comment out this line
-    |a: u64, b: u64| -> u64 { format!("{}{}", a, b).parse().unwrap() },
+    |a: u64, b: u64| -> u64 { format!("{a}{b}").parse().unwrap() },
 ];
 
 impl Equation {
-    fn new() -> Equation {
-        Equation {
+    const fn new() -> Self {
+        Self {
             result: 0,
             numbers: Vec::new(),
         }
     }
 
-    fn from(line: &str) -> Result<Equation> {
-        let mut equation = Equation::new();
+    fn from(line: &str) -> Result<Self> {
+        let mut equation = Self::new();
 
-        if !line.contains(":") {
+        if !line.contains(':') {
             return Err(anyhow::anyhow!("Invalid equation input"));
         }
 
         let (result, numbers) = match line.split_once(": ") {
             Some((res, nums)) => (
                 res.parse::<u64>().unwrap(),
-                nums.split(" ").map(|x| x.parse::<u64>().unwrap()).collect(),
+                nums.split(' ').map(|x| x.parse::<u64>().unwrap()).collect(),
             ),
             None => {
                 return Err(anyhow::anyhow!("Couldn't split valid input"))
@@ -66,19 +66,16 @@ impl Equation {
     }
 
     fn validate(&self) -> Result<u64> {
-        match Equation::eval(self.result, self.numbers[0], self.numbers[1..].to_vec()).unwrap() {
-            true => Ok(self.result),
-            false => Ok(0),
-        }
+        if Self::eval(self.result, self.numbers[0], &self.numbers[1..]).unwrap() { Ok(self.result) } else { Ok(0) }
     }
 
-    fn eval(expected_result: u64, acc: u64, numbers: Vec<u64>) -> Result<bool> {
+    fn eval(expected_result: u64, acc: u64, numbers: &[u64]) -> Result<bool> {
         if numbers.is_empty() {
             return Ok(expected_result == acc);
         }
 
         Ok(OPERATORS.iter().any(|op| {
-            Equation::eval(expected_result, op(acc, numbers[0]), numbers[1..].to_vec()).unwrap()
+            Self::eval(expected_result, op(acc, numbers[0]), &numbers[1..]).unwrap()
         }))
     }
 }

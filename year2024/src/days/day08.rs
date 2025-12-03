@@ -4,14 +4,14 @@ pub fn solve(input_file: &str) {
     let input = std::fs::read_to_string(input_file).unwrap();
 
     let matrix: Vec<Vec<char>> = input.lines().map(|line| line.chars().collect()).collect();
-    let row_bound = matrix.len() as i8;
-    let col_bound = matrix[0].len() as i8;
+    let row_bound = i8::try_from(matrix.len()).unwrap();
+    let col_bound = i8::try_from(matrix[0].len()).unwrap();
 
     let deviant_char_positions = find_deviant_chars(&matrix, '.');
 
     let antennae: Vec<Antenna> = deviant_char_positions
         .iter()
-        .map(|pos| Antenna::from(pos))
+        .map(Antenna::from)
         .collect();
 
     let mut antinode_set = HashSet::new();
@@ -19,11 +19,9 @@ pub fn solve(input_file: &str) {
     for i in 0..antennae.len() - 1 {
         let antenna_1 = &antennae[i];
 
-        for j in i + 1..antennae.len() {
-            let antenna_2 = &antennae[j];
-
+        for antenna_2 in antennae.iter().skip(i + 1) {
             if let Some(antinode_vec) =
-                Antenna::compare_for_nodes(&antenna_1, &antenna_2, row_bound, col_bound)
+                Antenna::compare_for_nodes(antenna_1, antenna_2, row_bound, col_bound)
             {
                 for node in antinode_vec {
                     antinode_set.insert(node);
@@ -32,10 +30,10 @@ pub fn solve(input_file: &str) {
         }
     }
 
-    println!("There are {} unique antinodes", antinode_set.len())
+    println!("There are {} unique antinodes", antinode_set.len());
 }
 
-fn find_deviant_chars(matrix: &Vec<Vec<char>>, norm: char) -> Vec<(char, usize, usize)> {
+fn find_deviant_chars(matrix: &[Vec<char>], norm: char) -> Vec<(char, usize, usize)> {
     let mut results = Vec::new();
 
     for (i, row) in matrix.iter().enumerate() {
@@ -56,16 +54,17 @@ struct Antenna {
 }
 
 impl Antenna {
-    fn new() -> Antenna {
-        Antenna {
+    const fn new() -> Self {
+        Self {
             frequency: 'a',
             row: 0,
             col: 0,
         }
     }
 
-    fn from(char_pos: &(char, usize, usize)) -> Antenna {
-        let mut antenna = Antenna::new();
+    #[allow(clippy::cast_possible_truncation)]
+    const fn from(char_pos: &(char, usize, usize)) -> Self {
+        let mut antenna = Self::new();
 
         antenna.frequency = char_pos.0;
         antenna.row = char_pos.1 as i8;
@@ -77,7 +76,7 @@ impl Antenna {
     // Compare with other Antenna. If same frequency, create antinodes in both directions.
     fn compare_for_nodes(
         &self,
-        other: &Antenna,
+        other: &Self,
         row_bound: i8,
         col_bound: i8,
     ) -> Option<Vec<Antinode>> {
@@ -108,7 +107,7 @@ impl Antenna {
             if Antinode::validate(&self_antinode, row_bound, col_bound) {
                 antinode_vec.push(self_antinode);
             } else {
-                valid_antinode = false
+                valid_antinode = false;
             }
         }
 
@@ -130,7 +129,7 @@ impl Antenna {
             if Antinode::validate(&other_antinode, row_bound, col_bound) {
                 antinode_vec.push(other_antinode);
             } else {
-                valid_antinode = false
+                valid_antinode = false;
             }
         }
 
@@ -145,7 +144,7 @@ struct Antinode {
 }
 
 impl Antinode {
-    fn validate(&self, row_bound: i8, col_bound: i8) -> bool {
+    const fn validate(&self, row_bound: i8, col_bound: i8) -> bool {
         self.row >= 0 && self.row < row_bound && self.col >= 0 && self.col < col_bound
     }
 }

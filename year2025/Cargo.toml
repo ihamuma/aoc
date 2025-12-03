@@ -1,6 +1,18 @@
 [package]
-name = "year2025"
-version = "0.1.0"
-edition = "2021"
+    name = "year2025"
+    version = "0.1.0"
+    edition = "2021"
+    description = "2025 AoC solutions"
+    license = "MIT OR Apache-2.0"
+    repository = "https://github.com/ihamuma/aoc"
+    readme = "README.md"
+    keywords = ["advent", "of", "code", "rust"]
+    categories = ["fun"]
+
+[lints.clippy]
+    all = "warn"
+    pedantic = "warn"
+    nursery = "warn"
+    cargo = "warn"
 
 [dependencies]

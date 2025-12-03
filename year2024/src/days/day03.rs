@@ -7,17 +7,14 @@ pub fn solve(input_file: &str) {
     let to_multiply = regex_for_multipliables(&corrupted_memory);
     let sum = sum_multiples_from_str_vec(to_multiply);
 
-    println!("Sum of uncorrupted multiplications: {}", sum);
+    println!("Sum of uncorrupted multiplications: {sum}");
 
     let split_dos = split_by_do_and_dont(&corrupted_memory);
     let joined_dos = split_dos.join("");
     let dos_to_multiply = regex_for_multipliables(&joined_dos);
     let summed_dos = sum_multiples_from_str_vec(dos_to_multiply);
 
-    println!(
-        "Sum of uncorrupted multiplications to 'do': {}",
-        summed_dos
-    );
+    println!("Sum of uncorrupted multiplications to 'do': {summed_dos}");
 }
 
 fn regex_for_multipliables(matchable: &str) -> Vec<(&str, &str)> {
@@ -37,21 +34,12 @@ fn sum_multiples_from_str_vec(str_vec: Vec<(&str, &str)>) -> u32 {
     let mut sum = 0;
 
     for m in str_vec {
-        let m1 = string_to_int(m.0);
-        let m2 = string_to_int(m.1);
-        sum += m1 * m2
+        let m1 = m.0.parse::<u32>().unwrap();
+        let m2 = m.1.parse::<u32>().unwrap();
+        sum += m1 * m2;
     }
 
     sum
-}
-
-fn string_to_int(s: &str) -> u32 {
-    let int: u32 = match s.trim().parse() {
-        Ok(num) => num,
-        Err(_) => panic!("Fuck, that didn't work"),
-    };
-
-    int
 }
 
 fn split_by_do_and_dont(memory: &str) -> Vec<&str> {
