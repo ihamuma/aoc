@@ -38,7 +38,7 @@ aoc/
 
 ### Unified CLI (Recommended)
 
-The repository includes a cross-platform CLI tool that works with all years. This is the recommended way to run solutions.
+The repository includes a cross-platform CLI tool that works with all years. I recommend using it, as it makes running solutions dead simple as you go.
 
 #### Installation
 
