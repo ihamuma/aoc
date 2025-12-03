@@ -7,7 +7,6 @@ pub fn solve(file_path: &str) {
     .map(|bb|bb.chars()
         .map(|b|b.to_digit(10).unwrap()).collect())
     .collect();
-    println!("{battery_banks:?}");
 
     let part_one_joltage: u32 = solve_part_one(&mut battery_banks);
     println!("Part one total joltage: {part_one_joltage}");
@@ -15,16 +14,17 @@ pub fn solve(file_path: &str) {
 
 fn solve_part_one(battery_banks: &mut [Vec<u32>]) -> u32 {
     let mut total_joltage: u32 = 0;
+    let battery_bank_length: usize = battery_banks[0].len();
     for battery_bank in battery_banks {
-        let (idx_max,_max) = battery_bank.iter().enumerate().max_by_key(|(_idx, &val)| val).unwrap();
-        let first_max_battery: u32 = battery_bank.remove(idx_max);
-        let (idx_second_max_battery,second_max_battery) = battery_bank.iter().enumerate().max_by_key(|(_idx, &val)| val).unwrap();
-        if idx_max <= idx_second_max_battery {
-            total_joltage += first_max_battery * 10 + second_max_battery;
-            println!("{}", first_max_battery * 10 + second_max_battery);
+        let (idx_max, max) = battery_bank.iter().enumerate().max_by_key(|(_idx, &val)| val).unwrap();
+        if idx_max == battery_bank_length-1 {
+            let remaining_batteries: &[u32] = &battery_bank[..idx_max];
+            let second_max: &u32 = remaining_batteries.iter().max().unwrap();            
+            total_joltage += second_max * 10 + max;
         } else {
-            total_joltage += second_max_battery * 10 + first_max_battery;
-            println!("{}", second_max_battery * 10 + first_max_battery);
+            let remaining_batteries: &[u32] = &battery_bank[idx_max + 1..];
+            let second_max: &u32 = remaining_batteries.iter().max().unwrap();
+            total_joltage += max * 10 + second_max;
         }
     }
     total_joltage
