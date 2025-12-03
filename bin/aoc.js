@@ -30,6 +30,7 @@ Examples:
   aoc 2022 3        Run 2022 day 3 with real input
 
 Available years:
+  2025 - Rust
   2024 - Rust
   2023 - TypeScript
   2022 - Python
@@ -53,7 +54,7 @@ const day = args[1];
 const isTest = args[2] === 'test';
 
 // Validate year
-const validYears = ['2022', '2023', '2024'];
+const validYears = ['2022', '2023', '2024', '2025'];
 if (!validYears.includes(year)) {
   console.error(`Error: Invalid year '${year}'. Valid years: ${validYears.join(', ')}`);
   process.exit(1);
@@ -71,8 +72,9 @@ let command;
 
 try {
   switch (year) {
+    case '2025':
     case '2024':
-      command = `cargo run -p year2024 ${day}${isTest ? ' test' : ''}`;
+      command = `cargo run -p year${year} ${day}${isTest ? ' test' : ''}`;
       break;
 
     case '2023':

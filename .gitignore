@@ -1,6 +1,5 @@
 *.txt
 !00.txt
-.claude/
 
 # Added by cargo
 /target
