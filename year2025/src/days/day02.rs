@@ -32,7 +32,7 @@ fn solve_part_two(id_ranges: &Vec<Vec<u64>>) -> u64 {
     1. for each id in each range, get length. For n in 2..=length/2, check if length % n = 0.
         if true, split id into n equal chunks. if all equal, total += id and break
         NB: would .windows(length/n) work here?
-    2. make some crazy regex that checks for repeating digits and series of idigits until id.len()/2 for each id in each range.
+    2. make some crazy regex that checks for repeating digits and series of digits until id.len()/2 for each id in each range.
         if repeating digits -> total += id and break   */
     return 64;
 }
