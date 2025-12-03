@@ -22,7 +22,8 @@ fn main() {
 
     match day {
         1 => day01::solve(&file_path),
-        2..=12 => println!("Day {day} not implemented yet."),
+        2 => day02::solve(&file_path),
+        3..=12 => println!("Day {day} not implemented yet."),
         13..=25 => println!("Only 12 days in AoC 2025!"),
         _ => eprintln!("Invalid day: {}", day),
     }
