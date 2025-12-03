@@ -4,7 +4,7 @@ pub fn solve(input_file: &str) {
     let disk_map: Vec<u8> = fs::read_to_string(input_file)
         .unwrap()
         .chars()
-        .map(|ch| ch.to_digit(10).unwrap() as u8)
+        .map(|ch| u8::try_from(ch.to_digit(10).unwrap()).unwrap())
         .collect();
 
     let expanded_layout = expand_layout(disk_map);
@@ -17,8 +17,9 @@ pub fn solve(input_file: &str) {
     let compacted_layout = compact_layout(expanded_layout, empty_count);
 
     let mut check_sum = 0;
+    #[allow(clippy::cast_possible_wrap)]
     for (i, mem) in compacted_layout.into_iter().enumerate() {
-        check_sum += i as i64 * mem as i64
+        check_sum += i as i64 * i64::from(mem);
     }
 
     println!("Initial check sum: {check_sum}");
@@ -26,8 +27,7 @@ pub fn solve(input_file: &str) {
     let mut free_space_locations = locate_free_spaces(&expanded_layout_two);
     let mut file_locations = locate_files(&expanded_layout_two);
 
-    while !file_locations.is_empty() {
-        let file_to_move = file_locations.pop().unwrap();
+    while let Some(file_to_move) = file_locations.pop() {
         let memory_need = file_to_move.size;
         let file_lower = file_to_move.lower;
 
@@ -61,8 +61,8 @@ pub fn solve(input_file: &str) {
                     upper: free_space.upper,
                 },
             );
-            free_space.upper = free_space.upper - diff;
-        };
+            free_space.upper -= diff;
+        }
 
         let free_lower = free_space.lower;
         let free_upper = free_space.upper;
@@ -80,13 +80,14 @@ pub fn solve(input_file: &str) {
     }
 
     let mut second_check_sum = 0;
+    #[allow(clippy::cast_possible_wrap)]
     for (i, mem) in expanded_layout_two.into_iter().enumerate() {
         if mem != -1 {
-            second_check_sum += i as i64 * mem as i64
+            second_check_sum += i as i64 * i64::from(mem);
         }
     }
 
-    println!("Final check sum: {second_check_sum}")
+    println!("Final check sum: {second_check_sum}");
 }
 
 fn expand_layout(disk: Vec<u8>) -> Vec<i16> {
@@ -95,7 +96,7 @@ fn expand_layout(disk: Vec<u8>) -> Vec<i16> {
     for (i, mem) in disk.into_iter().enumerate() {
         if mem == 0 {
             continue;
-        };
+        }
 
         if i % 2 == 0 {
             id += 1;
@@ -135,7 +136,7 @@ struct FreeSpaceInfo {
 }
 
 // See locate_files for enumerating version
-fn locate_free_spaces(memory: &Vec<i16>) -> Vec<FreeSpaceInfo> {
+fn locate_free_spaces(memory: &[i16]) -> Vec<FreeSpaceInfo> {
     let mut locations = Vec::new();
     let lim = memory.len() - 1;
 
@@ -176,7 +177,7 @@ struct FileInfo {
 }
 
 // See locate_free_files for non-enumerating version
-fn locate_files(memory: &Vec<i16>) -> Vec<FileInfo> {
+fn locate_files(memory: &[i16]) -> Vec<FileInfo> {
     let mut location_vec = Vec::new();
     let mut cur_id = memory[0];
     let mut start = 0;
@@ -199,8 +200,8 @@ fn locate_files(memory: &Vec<i16>) -> Vec<FileInfo> {
         location_vec.push(FileInfo {
             size: memory.len() - start,
             lower: start,
-        })
-    };
+        });
+    }
 
     location_vec
 }

@@ -4,7 +4,7 @@ pub fn solve(input_file: &str) {
     let by_line: Vec<String> = fs::read_to_string(input_file)
         .unwrap()
         .lines()
-        .map(|l| String::from(l))
+        .map(String::from)
         .collect();
 
     let int_vecs: (Vec<i32>, Vec<i32>) = split_to_int_vecs(by_line);
@@ -18,20 +18,20 @@ pub fn solve(input_file: &str) {
 
     let sum: i32 = distances.iter().sum();
 
-    println!("Total distance: {}", sum);
+    println!("Total distance: {sum}");
 
     let mut similarity_score: i32 = 0;
     for elem_1 in &locations_one {
         let mut sim_score: i32 = 0;
         for elem_2 in &locations_two {
             if elem_1 == elem_2 {
-                sim_score += 1
+                sim_score += 1;
             }
         }
-        similarity_score += sim_score * elem_1
+        similarity_score += sim_score * elem_1;
     }
 
-    println!("Similarity score: {}", similarity_score)
+    println!("Similarity score: {similarity_score}");
 }
 
 fn split_to_int_vecs(vec: Vec<String>) -> (Vec<i32>, Vec<i32>) {
@@ -44,8 +44,8 @@ fn split_to_int_vecs(vec: Vec<String>) -> (Vec<i32>, Vec<i32>) {
         locations_two.push(split[1].trim().parse::<i32>().unwrap());
     }
 
-    locations_one.sort();
-    locations_two.sort();
+    locations_one.sort_unstable();
+    locations_two.sort_unstable();
 
     (locations_one, locations_two)
 }

@@ -4,14 +4,13 @@ pub fn solve(input_file: &str) {
     let by_line: Vec<String> = fs::read_to_string(input_file)
         .unwrap()
         .lines()
-        .map(|x| String::from(x))
+        .map(String::from)
         .collect();
 
     let reports: Vec<Vec<i8>> = by_line
         .iter()
         .map(|line| {
-            line.split(" ")
-                .into_iter()
+            line.split(' ')
                 .map(|s| s.trim().parse::<i8>().unwrap())
                 .collect()
         })
@@ -22,33 +21,27 @@ pub fn solve(input_file: &str) {
 
     for report in reports {
         if check_safety(&report) {
-            safes += 1
+            safes += 1;
         } else {
             unsafes.push(report);
         }
     }
 
-    println!("There are {} safe reports", safes);
+    println!("There are {safes} safe reports");
     println!("{} reports are currently unsafe", unsafes.len());
 
     let mut dampened_safes: u16 = 0;
     for report in unsafes {
         if check_dampened_safety(&report) {
-            dampened_safes += 1
+            dampened_safes += 1;
         }
     }
 
-    println!(
-        "Of the unsafe reports, {} are dampened safe",
-        dampened_safes
-    );
-    println!(
-        "In total, there are {} safe reports",
-        safes + dampened_safes
-    )
+    println!("Of the unsafe reports, {dampened_safes} are dampened safe");
+    println!("In total, there are {} safe reports", safes + dampened_safes);
 }
 
-fn check_safety(report: &Vec<i8>) -> bool {
+fn check_safety(report: &[i8]) -> bool {
     let ascending: bool = report[0] < report[1];
 
     if ascending {
@@ -68,9 +61,9 @@ fn check_safety(report: &Vec<i8>) -> bool {
     true
 }
 
-fn check_dampened_safety(report: &Vec<i8>) -> bool {
+fn check_dampened_safety(report: &[i8]) -> bool {
     for i in 0..report.len() {
-        let mut test = report.clone();
+        let mut test = report.to_vec();
         test.remove(i);
         if check_safety(&test) {
             return true;

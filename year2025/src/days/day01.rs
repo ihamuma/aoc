@@ -10,10 +10,10 @@ pub fn solve(input_file: &str) {
     let by_line_copy = by_line.clone();
 
     let part_one_combination: u16 = solve_part_one(by_line);
-    println!("Part one combination: {}", part_one_combination);
+    println!("Part one combination: {part_one_combination}");
 
     let part_two_combination: u16 = solve_part_two(by_line_copy);
-    println!("Part two combination: {}", part_two_combination);
+    println!("Part two combination: {part_two_combination}");
 }
 
 fn solve_part_one(lines: Vec<(&str, i16)>) -> u16 {
@@ -31,7 +31,7 @@ fn solve_part_one(lines: Vec<(&str, i16)>) -> u16 {
             combination += 1;
         }
     }
-    return combination;
+    combination
 }
 
 fn solve_part_two(lines: Vec<(&str, i16)>) -> u16 {    
@@ -41,7 +41,7 @@ fn solve_part_two(lines: Vec<(&str, i16)>) -> u16 {
 
     for line in lines {
         let remainder: i16 = line.1 % 100;
-        let full_rotations: u16 = ((line.1 - remainder) / 100).abs() as u16;
+        let full_rotations: u16 = ((line.1 - remainder) / 100).unsigned_abs();
         combination += full_rotations;
         if line.0 == "L" {
             new_position -= remainder;
@@ -66,5 +66,5 @@ fn solve_part_two(lines: Vec<(&str, i16)>) -> u16 {
             current_position = new_position;
         }
     }
-    return combination;
+    combination
 }
