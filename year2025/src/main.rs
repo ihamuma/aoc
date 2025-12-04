@@ -1,7 +1,7 @@
 use std::{env, time::Instant};
 
 mod days;
-use days::{day01, day02};
+use days::{day01, day02, day03};
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -23,7 +23,8 @@ fn main() {
     match day {
         1 => day01::solve(&file_path),
         2 => day02::solve(&file_path),
-        3..=12 => println!("Day {day} not implemented yet."),
+        3 => day03::solve(&file_path),
+        4..=12 => println!("Day {day} not implemented yet."),
         13..=25 => println!("Only 12 days in AoC 2025!"),
         _ => eprintln!("Invalid day: {day}"),
     }
