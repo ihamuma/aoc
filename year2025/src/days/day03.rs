@@ -2,17 +2,17 @@ use std::fs;
 
 pub fn solve(file_path: &str) {
     let input_file: String = fs::read_to_string(file_path).unwrap();
-    let mut battery_banks: Vec<Vec<u32>> = input_file
+    let battery_banks: Vec<Vec<u32>> = input_file
     .lines()
     .map(|bb|bb.chars()
         .map(|b|b.to_digit(10).unwrap()).collect())
     .collect();
 
-    let part_one_joltage: u32 = solve_part_one(&mut battery_banks);
+    let part_one_joltage: u32 = solve_part_one(&battery_banks);
     println!("Part one total joltage: {part_one_joltage}");
 }
 
-fn solve_part_one(battery_banks: &mut [Vec<u32>]) -> u32 {
+fn solve_part_one(battery_banks: &[Vec<u32>]) -> u32 {
     let mut total_joltage: u32 = 0;
     let battery_bank_length: usize = battery_banks[0].len();
     for battery_bank in battery_banks {
