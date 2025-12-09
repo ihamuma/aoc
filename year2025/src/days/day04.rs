@@ -16,8 +16,8 @@ pub fn solve(file_path: &str) {
 
 fn solve_part_one(grid: &Grid<char>) -> u32 {
     let mut accessible_paper_rolls: u32 = 0;
-    for (coordinate, _item) in grid.enumerate() {
-        if grid.neighbors(coordinate).map(|i|i.1).filter(|c| **c == '@').count() < 4 {
+    for (coordinate, item) in grid.enumerate() {
+        if *item == '@' && grid.neighbors(coordinate).map(|i|i.1).filter(|c| **c == '@').count() < 4 {
             accessible_paper_rolls += 1;
         }
     }
