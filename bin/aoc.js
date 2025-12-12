@@ -83,7 +83,7 @@ try {
 
     case '2022':
       const paddedDay = day.padStart(2, '0');
-      command = `python3 year2022/src/day${paddedDay}.py`;
+      command = `uv run python year2022/src/day${paddedDay}.py`;
       if (isTest) {
         console.warn('Warning: Test mode is not currently supported for 2022 solutions\n');
       }

@@ -18,7 +18,7 @@ fn main() {
         format!("year2025/input/{day:02}.txt")
     };
 
-    let now = Instant::now();
+    let now: Instant = Instant::now();
 
     match day {
         1 => day01::solve(&file_path),
