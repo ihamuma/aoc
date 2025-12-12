@@ -16,3 +16,4 @@
     cargo = "warn"
 
 [dependencies]
+grid2d = "1.2.0"
