@@ -22,7 +22,6 @@ function solvePart1(lines: string[]): number {
   for (let i = 0; i < lines.length; i++) {
     const regexMatches: RegExpMatchArray | null = lines[i].match(numberPattern);
     if (regexMatches) {
-      console.log(regexMatches)
       calibrationValueSum += +regexMatches[0].concat(regexMatches[regexMatches.length - 1])
     } else {
       console.log(`No match for line ${i}`)
