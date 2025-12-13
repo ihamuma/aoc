@@ -7,7 +7,7 @@ pub fn solve(input_file: &str) {
         .map(|s: &str| s.split_at(1))
         .map(|t: (&str, &str)| (t.0, t.1.parse::<i16>().unwrap()))
         .collect();
-    let by_line_copy = by_line.clone();
+    let by_line_copy: Vec<(&str, i16)> = by_line.clone();
 
     let part_one_combination: u16 = solve_part_one(by_line);
     println!("Part one combination: {part_one_combination}");
@@ -17,13 +17,12 @@ pub fn solve(input_file: &str) {
 }
 
 fn solve_part_one(lines: Vec<(&str, i16)>) -> u16 {
-
     let mut combination: u16 = 0;
     let mut current_position: i16 = 50;
 
     for line in lines {
         if line.0 == "L" {
-            current_position += -line.1;
+            current_position -= line.1;
         } else {
             current_position += line.1;
         }        

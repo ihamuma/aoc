@@ -30,11 +30,11 @@ fn accessible_paper_rolls(paper_room_grid: &Grid<char>) -> (Vec<grid2d::Coordina
     (accessible_paper_rolls, inaccessible_paper_rolls)
 }
 
-fn solve_part_two(paper_room_grid: & mut Grid<char>, accessible_rolls: &[Coordinate], inaccessible_rolls: &[Coordinate]) -> u32 {
+fn solve_part_two(paper_room_grid: & mut Grid<char>, accessible_rolls: &[Coordinate], _inaccessible_rolls: &[Coordinate]) -> u32 {
     println!("{paper_room_grid:?}");
     for coordinate in accessible_rolls {
         println!("{}", paper_room_grid.get(coordinate).unwrap());
-        paper_room_grid.get_mut(coordinate).map(|a|'.');
+        paper_room_grid.get_mut(coordinate).replace(&mut '.');
         println!("{}", paper_room_grid.get(coordinate).unwrap());
     }
     println!("{paper_room_grid:?}");
