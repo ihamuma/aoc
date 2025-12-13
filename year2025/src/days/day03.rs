@@ -24,8 +24,7 @@ fn solve_part_one(battery_banks: &[Vec<u32>]) -> u32 {
         if idx_max == battery_bank_length-1 {
             let remaining_batteries: &[u32] = &battery_bank[..idx_max];
             let remaining_batteries_max: &u32 = remaining_batteries.iter().max().unwrap();  
-            let max_joltage: u32 = remaining_batteries_max * 10 + max;
-            total_joltage += max_joltage;
+            total_joltage += remaining_batteries_max * 10 + max;            
         } else {
             let second_slice_batteries: &[u32] = &battery_bank[idx_max+1..];
             let second_slice_max: &u32 = second_slice_batteries.iter().max().unwrap();
@@ -38,8 +37,20 @@ fn solve_part_one(battery_banks: &[Vec<u32>]) -> u32 {
 fn solve_part_two(battery_banks: &[Vec<u32>]) -> u64 {
     let mut total_joltage: u64 = 0;
     for battery_bank in battery_banks {
-        let max = battery_bank.iter().max().unwrap();
-        let idx_max = battery_bank.iter().position(|b|b == max).unwrap();
+        let mut joltages: Vec<u32> = vec![];
+        let mut idx_max: usize = 0;
+        let mut battery_bank_slice = &battery_bank[..];
+        while joltages.len() < 12 {
+            println!("Initially: {joltages:?} \n {idx_max} \n {battery_bank_slice:?}");
+            let max: &u32 = battery_bank_slice.iter().max().unwrap();
+            idx_max += battery_bank.iter().position(|b|b == max).unwrap();
+            if battery_bank_slice.len()-idx_max == 12-joltages.len() {
+                battery_bank_slice.iter().for_each(|b: &u32|joltages.push(*b));
+            } else {
+                joltages.push(*max);
+                battery_bank_slice = &battery_bank[idx_max + 1..];
+            }
+        }
         total_joltage += 1;
     }
     total_joltage
