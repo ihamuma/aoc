@@ -45,7 +45,7 @@ fn solve_part_two(battery_banks: &[Vec<u32>]) -> u64 {
             let max: &u32 = battery_bank_slice.iter().max().unwrap();
             idx_max += battery_bank.iter().position(|b|b == max).unwrap();
             if battery_bank_slice.len()-idx_max == 12-joltages.len() {
-                battery_bank_slice.iter().for_each(|b: &u32|joltages.push(*b));
+                for b in battery_bank_slice { joltages.push(*b); }
             } else {
                 joltages.push(*max);
                 battery_bank_slice = &battery_bank[idx_max + 1..];
