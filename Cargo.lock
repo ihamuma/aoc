@@ -18,6 +18,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "34ac096ce696dc2fcabef30516bb13c0a68a11d30131d3df6f04711467681b04"
 
 [[package]]
+name = "grid2d"
+version = "1.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a2c90e7d895b4664aec460202b6c13d59cb2f13099ccfd1dae2af06c14509e95"
+
+[[package]]
 name = "memchr"
 version = "2.7.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -63,3 +69,6 @@ dependencies = [
 [[package]]
 name = "year2025"
 version = "0.1.0"
+dependencies = [
+ "grid2d",
+]

@@ -6,7 +6,7 @@ All should be correct, none are likely to be particularly fast. Enjoy?
 
 ## Current Status
 
-- **2025**: 1 day completed (Rust)
+- **2025**: 2 days completed (Rust)
 - **2024**: 9 days completed (Rust)
 - **2023**: 1 day completed (TypeScript)
 - **2022**: 6 days completed (Python)
@@ -38,7 +38,7 @@ aoc/
 
 ### Unified CLI (Recommended)
 
-The repository includes a cross-platform CLI tool that works with all years. This is the recommended way to run solutions.
+The repository includes a cross-platform CLI tool that works with all years. I recommend using it, as it makes running solutions dead simple as you go.
 
 #### Installation
 
@@ -49,6 +49,26 @@ npm link
 ```
 
 This makes the `aoc` command available globally from anywhere on your system.
+
+#### Python Setup (Required for 2022 solutions)
+
+This project uses [uv](https://github.com/astral-sh/uv) for Python dependency management. Install it if you haven't already:
+
+```bash
+# macOS/Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Or with pip
+pip install uv
+```
+
+The virtual environment will be created automatically when you first run a Python solution. To manually set up the environment:
+
+```bash
+uv sync
+```
+
+The CLI tool automatically uses `uv run`, so Python solutions will use the virtual environment without any additional configuration.
 
 #### Usage
 
@@ -132,10 +152,10 @@ npm run solve -- 1 test
 
 #### Python Solutions (2022)
 
-To run Python solutions, execute the day file directly:
+To run Python solutions directly (without the CLI), use `uv run`:
 
 ```bash
-python3 year2022/src/dayXX.py
+uv run python year2022/src/dayXX.py
 ```
 
 **Note:** Test mode is not currently supported for 2022 solutions.
@@ -144,7 +164,13 @@ python3 year2022/src/dayXX.py
 
 Run 2022 day 1:
 ```bash
-python3 year2022/src/day01.py
+uv run python year2022/src/day01.py
+```
+
+Alternatively, activate the virtual environment and run directly:
+```bash
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+python year2022/src/day01.py
 ```
 
 ## Adding a New Year

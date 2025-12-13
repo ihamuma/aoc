@@ -14,3 +14,6 @@
     pedantic = "warn"
     nursery = "warn"
     cargo = "warn"
+
+[dependencies]
+grid2d = "1.2.0"
