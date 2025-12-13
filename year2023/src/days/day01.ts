@@ -4,11 +4,9 @@ export function solve(filePath: string): void {
   const input: string = readFileSync(filePath, 'utf-8');
   const lines: string[] = input.trim().split('\n');
 
-  // Part 1
   const part1 = solvePart1(lines);
   console.log('Part 1 calibration values sum:', part1);
 
-  // Part 2
   const part2 = solvePart2(lines);
   console.log('Part 2:', part2);
 }
@@ -44,10 +42,10 @@ function solvePart2(lines: string[]): number {
     const reverseRegexMatches: RegExpMatchArray | null = reverseString(lines[i]).match(reverseNumberPattern);
 
     if (regexMatches) {
-      first = replaceIfTextNumber(regexMatches[0])
+      first = replaceIfNumericString(regexMatches[0])
     }
     if (reverseRegexMatches) {
-      last = replaceIfTextNumber(reverseString(reverseRegexMatches[0]))
+      last = replaceIfNumericString(reverseString(reverseRegexMatches[0]))
     }
 
     calibrationValueSum += +first.concat(last)
@@ -56,7 +54,7 @@ function solvePart2(lines: string[]): number {
   return calibrationValueSum;
 }
 
-function replaceIfTextNumber(maybeNumber: string): string {
+function replaceIfNumericString(maybeNumber: string): string {
   switch (maybeNumber) {
     case 'one': return '1';
     case 'two': return '2';
