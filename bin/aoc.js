@@ -73,6 +73,19 @@ let command;
 try {
   switch (year) {
     case '2025':
+      // Special case: day 5 uses Python
+      if (day === '5') {
+        const paddedDay = day.padStart(2, '0');
+        const inputDir = isTest ? 'input_test' : 'input';
+        const inputPath = `year2025/${inputDir}/${paddedDay}.txt`;
+        const scriptPath = `year2025/src_py/day${paddedDay}.py`;
+        const testLabel = isTest ? ' test' : '';
+        command = `uv run python -c "import time; start=time.perf_counter(); exec(open('${scriptPath}').read(), {'__name__':'__main__','sys':__import__('sys')}); print(f'\\nDay ${day}${testLabel} ran in {(time.perf_counter()-start)*1000:.2f}ms')" ${inputPath}`;
+      } else {
+        command = `cargo run -p year2025 ${day}${isTest ? ' test' : ''}`;
+      }
+      break;
+
     case '2024':
       command = `cargo run -p year${year} ${day}${isTest ? ' test' : ''}`;
       break;
@@ -83,7 +96,8 @@ try {
 
     case '2022':
       const paddedDay = day.padStart(2, '0');
-      command = `uv run python year2022/src/day${paddedDay}.py`;
+      const scriptPath = `year2022/src/day${paddedDay}.py`;
+      command = `uv run python -c "import time; start=time.perf_counter(); exec(open('${scriptPath}').read(), {'__name__':'__main__','__file__':'${scriptPath}'}); print(f'\\nDay ${day} ran in {(time.perf_counter()-start)*1000:.2f}ms')"`;
       if (isTest) {
         console.warn('Warning: Test mode is not currently supported for 2022 solutions\n');
       }
