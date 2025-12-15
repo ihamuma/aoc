@@ -1,5 +1,4 @@
 import sys
-import time
 
 # Read input file path from command line argument
 input_path = sys.argv[1]
@@ -29,30 +28,33 @@ def main(data):
     
     safe_ids = 0
     current_lower_bound = sorted_list[0][0]
-    print("LB:", current_lower_bound)
+    # print("LB:", current_lower_bound)
     current_upper_bound = sorted_list[0][1]
-    print("UB:", current_upper_bound)
+    # print("UB:", current_upper_bound)
     sorted_list_length = len(sorted_list)
-    print("S_IDS:", safe_ids)
+    # print("S_IDS:", safe_ids)
     for i in range(0, sorted_list_length):
-        print("i:", i)
-        if i == sorted_list_length - 1:
+        # print("i:", i)
+        # Is this the issue? Does the last boundary not get examined, leading to too low?
+        if i == sorted_list_length-1:
+            if current_upper_bound < sorted_list[i][1]:
+                current_upper_bound = sorted_list[i][1]
             safe_ids += (current_upper_bound-current_lower_bound+1)
-            print("S_IDS:", safe_ids)
+            # print("S_IDS:", safe_ids)
             break
-        if sorted_list[i][1] > sorted_list[i+1][0]:
+        if sorted_list[i][1] > sorted_list[i+1][0] & sorted_list[i+1][1] > sorted_list[i+1][1]:
             current_upper_bound = sorted_list[i+1][1]
-            print("LB:", current_lower_bound)
-            print("UB:", current_upper_bound)
-            print("S_IDS:", safe_ids)
+            # print("LB:", current_lower_bound)
+            # print("UB:", current_upper_bound)
+            # print("S_IDS:", safe_ids)
         elif sorted_list[i][1] < sorted_list[i+1][0]:
             safe_ids += (current_upper_bound-current_lower_bound+1)
             current_lower_bound = sorted_list[i+1][0]
             current_upper_bound = sorted_list[i+1][1]
-            print("LB:", current_lower_bound)
-            print("UB:", current_upper_bound)
-            print("S_IDS:", safe_ids)
-        print("S_IDS:", safe_ids)
+            # print("LB:", current_lower_bound)
+            # print("UB:", current_upper_bound)
+            # print("S_IDS:", safe_ids)
+        # print("S_IDS:", safe_ids)
     print("Fresh IDs part two:", safe_ids)
 
 main(data)
